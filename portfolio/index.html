@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+<div class="page">
+
+    <div class="grid">
+
+        <a href="./pages/about.html" class="move delay1">
+            <img src="./images/un.png">
+        </a>
+
+        <a href="./pages/projects.html" class="move delay2">
+            <img src="./images/project.png">
+        </a>
+
+        <a href="./images/Shalon_Jovan_Resume.pdf" class="move delay3">
+            <img src="./images/resume.png">
+        </a>
+
+        <a href="buymeacoffee.com/CacCat" class="move delay8">
+            <img src="./images/coffee.png">
+        </a>
+
+        <a href="#about">
+            <img src="./images/me.jpg" class="center">
+        </a>
+
+
+        <a href="./pages/contact.html" class="move delay4">
+            <img src="./images/mail.png">
+        </a>
+
+        <a href="https://github.com/shalonjovan" class="move delay7">
+            <img src="./images/git.png">
+        </a>
+
+        <a href="https://play.picoctf.org/users/CacCat" class="move delay6">
+            <img src="./images/pico.png">
+        </a>
+
+        <a href="https://www.linkedin.com/in/shalon-jovan-b2aa88329/" class="move delay5">
+            <img src="./images/linked.webp">
+        </a>
+
+    </div>
+
+    <div class="about-code" id="about">
+<pre><code>
+#include stdio.h>
+
+typedef struct {
+    const char *languages[4];
+    const char *frontend[4];
+    const char *backend[3];
+    const char *tools[3];
+} TechSpells;
+
+typedef struct {
+    const char *title;
+    const char *location;
+    const char *education;
+    const char *currentMission;
+    TechSpells techSpells;
+} Shalon;
+
+const char* currentlyDoing(void) {
+    return "Networking… but with packets, not people";
+}
+
+int main() {
+    Shalon shalon = {
+        .title = "The Code wiz ",
+        .location = "Chennai, India ",
+        .education = "Computer Science Engineering",
+        .currentMission = "Building efficient systems close to the metal",
+
+        .techSpells = {
+            .languages = {"Python", "JavaScript", "Java", "C"},
+            .frontend  = {"React", "HTML5", "CSS3", "PyQt5"},
+            .backend   = {"Node.js", "Flask", "Supabase"},
+            .tools     = {"Git", "Docker", "VS Code"}
+        }
+    };
+
+    printf("%s\n", currentlyDoing());
+    return 0;
+}
+
+</code></pre>
+
+        <img src="./images/cat.gif" class="cat-gif" alt="coding cat">
+    </div>
+
+</div>
+
+</body>
+</html>

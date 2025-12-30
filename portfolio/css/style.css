@@ -1,0 +1,135 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box
+}
+
+body{
+  min-height:100vh;
+  font-family:system-ui,sans-serif;
+  background:linear-gradient(135deg,#e6e8eb,#d8dbdf,#e2e4e7);
+}
+
+.page{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:60px 0 100px;
+  gap:80px;
+}
+
+.grid{
+  position:relative;
+  width:700px;
+  height:700px;
+  filter:drop-shadow(0 25px 40px rgba(0,0,0,.12));
+}
+
+.grid a{position:absolute}
+
+.grid img{
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  padding:12px;
+  background:#fff;
+  object-fit:contain;
+}
+.center{
+  position:absolute;
+  top:280px;
+  left:280px;
+}
+
+
+@keyframes rotateAround{
+  0%{top:0;left:0}
+  12.5%{top:0;left:280px}
+  25%{top:0;left:560px}
+  37.5%{top:280px;left:560px}
+  50%{top:560px;left:560px}
+  62.5%{top:560px;left:280px}
+  75%{top:560px;left:0}
+  87.5%{top:280px;left:0}
+  100%{top:0;left:0}
+}
+
+.move{animation:rotateAround 16s linear infinite}
+.delay1{animation-delay:0s}
+.delay2{animation-delay:-2s}
+.delay3{animation-delay:-4s}
+.delay4{animation-delay:-6s}
+.delay5{animation-delay:-8s}
+.delay6{animation-delay:-10s}
+.delay7{animation-delay:-12s}
+.delay8{animation-delay:-14s}
+
+.about-code{
+  position:relative;
+  max-width:720px;
+  font-family:"JetBrains Mono",monospace;
+}
+
+.about-code pre{
+  padding:22px 26px;
+  font-size:13px;
+  line-height:1.6;
+  border-radius:14px;
+  color:#2e3440;
+  background:linear-gradient(135deg,#7096cf,#e6e9ef);
+  box-shadow:0 18px 35px rgba(0,0,0,.15);
+  overflow-x:auto;
+}
+
+.cat-gif{
+  position:absolute;
+  right:-60px;
+  bottom:-40px;
+  width:120px;
+  pointer-events:none;
+}
+
+.projects-title{
+  font-size:28px;
+  letter-spacing:2px;
+  opacity:.7;
+}
+
+.projects-grid{
+  position:relative;
+  width:600px;
+  height:600px;
+  margin-top:40px;
+}
+
+.orbit{position:absolute;text-decoration:none}
+
+.project-ball{
+  width:64px;
+  height:64px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font:18px "JetBrains Mono",monospace;
+  color:#2e3440;
+  background:#f5f6f8;
+  border:1px solid rgba(0,0,0,.1);
+  box-shadow:0 10px 20px rgba(0,0,0,.12);
+  transition:transform .2s ease;
+}
+
+.project-ball:hover{transform:scale(1.1)}
+
+.project-center{
+  position:absolute;
+  top:236px;
+  left:236px;
+  width:128px;
+  height:128px;
+  padding:12px;
+  border-radius:50%;
+  background:#fff;
+  object-fit:contain;
+  box-shadow:0 20px 35px rgba(0,0,0,.18);
+}
