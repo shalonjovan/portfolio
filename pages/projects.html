@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Shalon Jovan</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .back-link {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            text-decoration: none;
+            color: #2e3440;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 14px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+            z-index: 100;
+        }
+
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            text-decoration: none;
+            color: #fff;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 14px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #7096cf, #5578b0);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.2s ease;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+        }
+
+        .projects-title {
+            font-size: 32px;
+            letter-spacing: 3px;
+            opacity: 0.7;
+            font-family: "JetBrains Mono", monospace;
+        }
+
+        .project-tooltip {
+            position: absolute;
+            bottom: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.9);
+            color: #fff;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-family: "JetBrains Mono", monospace;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+            max-width: 250px;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .orbit:hover .project-tooltip {
+            opacity: 1;
+        }
+
+        .orbit {
+            position: absolute;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+        }
+
+        .orbit:hover {
+            transform: scale(1.15);
+            z-index: 100;
+        }
+
+        .project-ball {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font: 18px "JetBrains Mono", monospace;
+            color: #2e3440;
+            background: linear-gradient(135deg, #f5f6f8, #e6e9ef);
+            border: 2px solid rgba(0,0,0,0.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+            transition: all 0.2s ease;
+        }
+
+        .orbit:hover .project-ball {
+            background: linear-gradient(135deg, #7096cf, #e6e9ef);
+            border-color: #7096cf;
+            box-shadow: 0 15px 30px rgba(112, 150, 207, 0.3);
+        }
+
+        .project-center {
+            position: absolute;
+            top: 236px;
+            left: 236px;
+            width: 128px;
+            height: 128px;
+            padding: 12px;
+            border-radius: 50%;
+            background: #fff;
+            object-fit: contain;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.18);
+            transition: transform 0.2s ease;
+        }
+
+        .project-center:hover {
+            transform: scale(1.05);
+        }
+
+        .projects-list {
+            max-width: 900px;
+            width: 100%;
+            margin-top: 60px;
+        }
+
+        .projects-list h3 {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 20px;
+            color: #2e3440;
+            opacity: 0.8;
+            margin-bottom: 20px;
+            border-bottom: 2px solid rgba(0,0,0,0.1);
+            padding-bottom: 10px;
+        }
+
+        .project-category {
+            margin-bottom: 40px;
+        }
+
+        .project-item {
+            padding: 18px 20px;
+            background: linear-gradient(135deg, #ffffff, #f5f6f8);
+            border-radius: 10px;
+            margin-bottom: 14px;
+            border-left: 4px solid #7096cf;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            transition: all 0.2s ease;
+        }
+
+        .project-item:hover {
+            transform: translateX(8px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+            border-left-color: #5578b0;
+        }
+
+        .project-item h4 {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 16px;
+            color: #2e3440;
+            margin-bottom: 6px;
+        }
+
+        .project-item h4 a {
+            text-decoration: none;
+            color: #7096cf;
+            transition: color 0.2s ease;
+        }
+
+        .project-item h4 a:hover {
+            color: #5578b0;
+        }
+
+        .project-item p {
+            font-size: 13px;
+            color: #4c566a;
+            line-height: 1.6;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .tech-tag {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 11px;
+            padding: 4px 10px;
+            background: rgba(112, 150, 207, 0.15);
+            color: #2e3440;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<a href="../index.html" class="back-link">← Back to Home</a>
+<a href="#top" class="back-to-top" id="backToTop">↑ Back to Top</a>
+
+<div class="page" id="top">
+
+    <div class="projects-title">
+        PROJECTS
+    </div>
+
+    <div class="projects-grid">
+
+        <a href="https://github.com/shalonjovan/hwmon" class="orbit move delay1" target="_blank">
+            <div class="project-ball">1</div>
+            <span class="project-tooltip">hwmon<br>Hardware Monitor TUI</span>
+        </a>
+
+        <a href="https://github.com/shalonjovan/Cac-s-Arcade" class="orbit move delay2" target="_blank">
+            <div class="project-ball">2</div>
+            <span class="project-tooltip">CAC's Arcade<br>Multiplayer Game Server</span>
+        </a>
+
+        <a href="https://github.com/shalonjovan/VidyaGyan" class="orbit move delay3" target="_blank">
+            <div class="project-ball">3</div>
+            <span class="project-tooltip">Vidya Gyan<br>Career Development Tool</span>
+        </a>
+
+        <a href="https://github.com/shalonjovan/Ball_shooter" class="orbit move delay4" target="_blank">
+            <div class="project-ball">4</div>
+            <span class="project-tooltip">Ball Shooter<br>LAN Multiplayer Game</span>
+        </a>
+
+        <a href="https://github.com/shalonjovan/Quick-search" class="orbit move delay5" target="_blank">
+            <div class="project-ball">5</div>
+            <span class="project-tooltip">Quick-Search<br>Browser Extension</span>
+        </a>
+
+        <a href="https://github.com/shalonjovan/pix-wave" class="orbit move delay6" target="_blank">
+            <div class="project-ball">6</div>
+            <span class="project-tooltip">Pix-Wave<br>Audio Visualizer</span>
+        </a>
+
+        <a href="https://github.com/shalonjovan/img_in_ter" class="orbit move delay7" target="_blank">
+            <div class="project-ball">7</div>
+            <span class="project-tooltip">img_in_ter<br>Terminal Image Renderer</span>
+        </a>
+
+        <a href="https://github.com/shalonjovan/wreaky-ball" class="orbit move delay8" target="_blank">
+            <div class="project-ball">8</div>
+            <span class="project-tooltip">Wreaky Ball<br>Vanilla JS Game</span>
+        </a>
+
+        <a href="https://github.com/shalonjovan">
+            <img src="../images/project.png" class="project-center" alt="Projects">
+        </a>
+
+    </div>
+
+    <div class="projects-list">
+        
+        <div class="project-category">
+            <h3>// System & Low-Level Projects</h3>
+            
+            <div class="project-item">
+                <h4><a href="https://github.com/shalonjovan/hwmon" target="_blank">hwmon</a></h4>
+                <p>An Armoury Crate-like terminal-based hardware monitor that reads everything directly from kernel interfaces without using any external tools, built with Textual for TUI rendering</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Textual</span>
+                    <span class="tech-tag">Kernel</span>
+                    <span class="tech-tag">Linux</span>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <h4><a href="https://github.com/shalonjovan/pix-wave" target="_blank">Pix-Wave</a></h4>
+                <p>A terminal-based sound visualizer made with Textual and Rich for real-time audio waveform rendering</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Textual</span>
+                    <span class="tech-tag">Rich</span>
+                    <span class="tech-tag">Audio</span>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <h4><a href="https://github.com/shalonjovan/img_in_ter" target="_blank">img_in_ter</a></h4>
+                <p>A Python script project to render images in terminal using pixel-to-character mapping</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Terminal</span>
+                    <span class="tech-tag">Image Processing</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-category">
+            <h3>// Games & Multiplayer Projects</h3>
+            
+            <div class="project-item">
+                <h4><a href="https://github.com/shalonjovan/wreaky-ball" target="_blank">Wreaky Ball</a></h4>
+                <p>A vanilla JavaScript game with creative front-end designs and engaging gameplay mechanics</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">HTML5 Canvas</span>
+                    <span class="tech-tag">CSS3</span>
+                    <span class="tech-tag">Game Dev</span>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <h4><a href="https://github.com/shalonjovan/Cac-s-Arcade" target="_blank">CAC's Arcade</a></h4>
+                <p>An online multiplayer game server using WebSocket-based sessions to manage game rounds and real-time player interactions</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">WebSocket</span>
+                    <span class="tech-tag">Node.js</span>
+                    <span class="tech-tag">Sessions</span>
+                    <span class="tech-tag">Multiplayer</span>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <h4><a href="https://github.com/shalonjovan/Ball_shooter" target="_blank">Ball Shooter</a></h4>
+                <p>A LAN-based multiplayer shooter game made using raw sockets and Pygame with real-time networking</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Sockets</span>
+                    <span class="tech-tag">Pygame</span>
+                    <span class="tech-tag">Multiplayer</span>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <h4><a href="https://github.com/shalonjovan/projectile-simulation" target="_blank">Projectile Simulation</a></h4>
+                <p>A physics simulator for projectile motion with accurate calculations and visual representation</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Physics</span>
+                    <span class="tech-tag">Simulation</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-category">
+            <h3>// Web Development & Tools</h3>
+            
+            <div class="project-item">
+                <h4><a href="https://github.com/shalonjovan/VidyaGyan" target="_blank">Vidya Gyan</a></h4>
+                <p>My SIH project - A personalized career development tool helping students navigate their career paths with AI-powered recommendations</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">MERN Stack</span>
+                    <span class="tech-tag">AI/ML</span>
+                    <span class="tech-tag">Career Tech</span>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <h4><a href="https://github.com/shalonjovan/Event-Lister" target="_blank">Event Listener</a></h4>
+                <p>A web scraper that aggregates event data from multiple sites and presents it in a single unified interface</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Web Scraping</span>
+                    <span class="tech-tag">BeautifulSoup</span>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <h4><a href="https://github.com/shalonjovan/Captcha" target="_blank">Captcha</a></h4>
+                <p>A CAPTCHA generation Python library with customizable difficulty and style options</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Security</span>
+                    <span class="tech-tag">Library</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-category">
+            <h3>// Browser Extensions</h3>
+            
+            <div class="project-item">
+                <h4><a href="https://github.com/shalonjovan/Quick-search" target="_blank">Quick-Search</a></h4>
+                <p>A name-indexed shortcut browser extension for fast site access with custom keywords</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">Browser Extension</span>
+                    <span class="tech-tag">Productivity</span>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <h4><a href="https://github.com/shalonjovan/web-block" target="_blank">Web-Block</a></h4>
+                <p>A site blocking browser extension with customizable rules and scheduling features</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">Browser Extension</span>
+                    <span class="tech-tag">Productivity</span>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <h4><a href="https://github.com/shalonjovan/download-manager" target="_blank">Download Manager</a></h4>
+                <p>A download management tool for routing downloads based on origin site and file extension type</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">Browser Extension</span>
+                    <span class="tech-tag">File Management</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-category">
+            <h3>// More Projects</h3>
+            
+            <div class="project-item">
+                <h4><a href="https://github.com/shalonjovan/mini_projects" target="_blank">Mini Projects Collection</a></h4>
+                <p>A bunch of mini projects - experimental coding challenges, quick utilities, and fun side projects</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Various Languages</span>
+                    <span class="tech-tag">Experiments</span>
+                    <span class="tech-tag">Learning</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    // Back to top button functionality
+    const backToTop = document.getElementById('backToTop');
+    
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
+    });
+    
+    backToTop.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+</script>
+
+</body>
+</html>
